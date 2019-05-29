@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <a href="form_entry">Enter event to calendar</a>
+    <a href="calendarall">Look at your calendar</a>
+    <a href="edit_profile/{{user.id}}">EDIT PROFILE</a>
+    <a href="logout">LOGOUT</a>
+    <img src="{{user.profile.image.url}}" alt="" style="border-radius: 50%; width: 150px; height: 150px;"> 
+    <p>BIO: {{profile.bio}}</p>
+    <a href="view_profile/{{user.id}}"><p>{{user.fname}} {{user.lname}}</p></a>
+    <div>
+        {{events}}
+        <p>YOUR EVENTS TODAY!</p>
+        {%for event in events%}
+        <p>{{event.title}} {{event.start}} till {{event.end}}</p>
+        {%endfor%}
+    </div>
+    <form action="/user_post" method="post">
+        {% csrf_token %}
+    <label for="post">WRITE ON THE FEED:</label>
+    <textarea name="userpost" cols="30" rows="10"></textarea>
+    <button type="submit">POST!</button>
+    </form>
+    {%for post in posts%}
+        <div class="post">
+            <p>{{post.created_at}}</p>
+            <a href="/view_profile/{{post.user.id}}">
+            <p>{{post.user.fname}} </a>said:</p>
+            <p>{{post.text}}</p>
+            {%if post.user == user%}
+                <p><a href="/delete_post/{{post.id}}">DELETE POST</a></p>
+            {%endif%}
+        </div>
+        {%for comment in comments%}
+            {%if comment.post_commented == post%}
+                <div class="comment">
+                    <p>{{comment.created_at}}</p>
+                    <a href="/view_profile/{{comment.user_comment.id}}">
+                    <p>{{comment.user_comment.fname}}</a> commented: </p>
+                    <p>{{comment.text}}</p>
+                    {%if comment.user_comment == user%}
+                        <p><a href="/delete_comment/{{post.id}}">DELETE COMMENT</a></p>
+                    {%endif%}
+                </div>
+            {%endif%}
+        {%endfor%}
+            <form action="/user_comment/{{post.id}}" method="post">
+                {% csrf_token %}
+            <label for="comment">ADD A COMMENT:</label>
+            <textarea name="usercomment" cols="30" rows="10"></textarea>
+            <button type="submit">comment!</button>
+            </form>
+    {%endfor%}
+</body>
+</html>

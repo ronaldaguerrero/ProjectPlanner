@@ -13,6 +13,15 @@
     <title>Login & Registration</title>
   </head>
   <body>
+    <div
+      class="alert alert-danger"
+      role="alert"
+      style="padding: 0 1rem; border: none;"
+    >
+      {% if messages %} {% for message in messages %}
+      {{ message | safe }}
+      {% endfor %} {% endif %}
+    </div>
     <div class="container" style="padding-top: 5rem">
       <h2 style="margin-bottom: 4rem;">Login and Register</h2>
       <div class="row">
@@ -39,29 +48,29 @@
               />
             </div>
             <div class="form-group">
-                <select name="month_start">
-                    <option value="12">12</option>
-                    <option value="11">11</option>
-                    <option value="10">10</option>
-                    <option value="9">9</option>
-                    <option value="8">8</option>
-                    <option value="7">7</option>
-                    <option value="6">6</option>
-                    <option value="5">5</option>
-                    <option value="4">4</option>
-                    <option value="3">3</option>
-                    <option value="2">2</option>
-                    <option value="1">1</option>
-                </select>
+              <select name="month_start">
+                <option value="12">12</option>
+                <option value="11">11</option>
+                <option value="10">10</option>
+                <option value="9">9</option>
+                <option value="8">8</option>
+                <option value="7">7</option>
+                <option value="6">6</option>
+                <option value="5">5</option>
+                <option value="4">4</option>
+                <option value="3">3</option>
+                <option value="2">2</option>
+                <option value="1">1</option>
+              </select>
             </div>
             <div class="forn-group">
-                <select name="year_start">
-                    <option value="2019">2019</option>
-                    <option value="2018">2018</option>
-                    <option value="2017">2017</option>
-                    <option value="2016">2016</option>
-                    <option value="2015">2015</option>
-                </select>
+              <select name="year_start">
+                <option value="2019">2019</option>
+                <option value="2018">2018</option>
+                <option value="2017">2017</option>
+                <option value="2016">2016</option>
+                <option value="2015">2015</option>
+              </select>
             </div>
             <div class="form-group">
               <label>Email:</label>
@@ -118,15 +127,6 @@
             <button type="submit" class="btn btn-primary">Log in</button>
           </form>
         </div>
-        {% if messages %}
-        <ul class="messages">
-          {% for message in messages %}
-          <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>
-            {{ message }}
-          </li>
-          {% endfor %}
-        </ul>
-        {% endif %}
       </div>
     </div>
   </body>
